@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<img style="width: 200px; height: 200px; border-radius: 50%;" src="{{user.profile_picture.url}}" alt="">
+<p>{{user.username}}</p>
+<p>{{user.last_name}}</p>
+<p>{{user.email}}</p>
+<a href="{% url 'logout' %}"><button>LogOut</button></a>
+
+{% endblock %}

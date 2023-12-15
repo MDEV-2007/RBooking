@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RBooking</title>
+    <link rel="icon" href="{% static 'images/pngwing.com.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static '/css/navbar.css' %}">
+    
+    {% block css %}
+    {% endblock %}
+</head>
+
+<body>
+    <div class="section_nav">
+        <div class="left_side">
+            <p><span><a href="{% url 'home' %}">RBooking</a></span></p>
+        </div>
+        <div class="center_side">
+            <form action="">
+               <div class="search">
+                    <input type="text" name="" placeholder="Search by author, title">
+               </div>
+                <div class="button">
+                    <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </form>
+        </div>
+        <div class="right_side">
+            <div class="lang">
+                <select id="langs" name="lang">
+                    <option value="volvo">eng</option>
+                    <option value="saab">uzb</option>
+                    <option value="mercedes">rus</option>
+                </select>
+            </div>
+            <div class="favorite">
+                <a href=""><i class="fa-regular fa-heart"></i></a>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="profile">
+                <span>{{user.username|slice:'0:1'}}</span>
+
+                <div class="dropdown">
+                    <a class="button" href="{% url 'profile_page' %}">Profile</a>
+                    <a class="button logout" href="{% url 'logout' %}">Logout</a>
+                </div>
+            </div>
+            {% else %}
+                <div class="register">
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}">Register</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- <div class="section_nav2">
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'home' %}">Support</a></li>
+            <li><a href="{% url 'home' %}">About</a></li>
+            <li><a href="{% url 'category' %}">Category</a></li>
+            <li><a href="{% url 'profile_page' %}">Profile</a></li>
+        </ul>
+    </div> -->
+    
+    {% block content %}
+    {% endblock %}
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About Us</h3>
+        <p>Discover and share books you love on RBooking.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Community</h3>
+        <ul>
+          <li><a href="#">Groups</a></li>
+          <li><a href="#">Discussions</a></li>
+          <li><a href="#">Quotes</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Connect</h3>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Support</a></li>
+          <li><a href="#">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 RBooking. All rights reserved.</p>
+    </div>
+  </footer>
+
+    <script src="{% static '/js/main.js' %}"></script>
+</body>
+
+</html>

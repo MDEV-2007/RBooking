@@ -1,0 +1,66 @@
+<!-- detail.html -->
+
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static '/css/category.css' %}">
+{% endblock %}
+{% block content %}
+
+<div class="category_container">
+    <div class="left ">
+        <form action="">
+            <div class="search">
+                <input type="text" name="" placeholder="Search by author, title">
+            </div>
+            <div class="button">
+                <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </form>
+        <div class="category">
+            <h1>Book Category</h1>
+            <ul>
+                <li>
+                    <a href="?">All</a>
+                    
+                </li>
+                {% for g in genre %}
+                <li>
+                    <a href="?genre={{g.name}}">{{g.name}}</a>
+
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="right">
+        <div class="card-container">
+
+            {% for book in books %}
+            <div class="card">
+                <a href="{% url 'book_detail' book_id=book.pk %}">
+                    <img src="{{book.image.url}}" alt="Card Image">
+                </a>
+
+                <div class="card-content">
+                    <h2>{{book.title}}</h2>
+                    <p>
+                        {% for x in book.range %}
+                        <span style="color: yellow;">&#9733;</span>
+                        {% endfor %}
+                        {% for x in book.xrange %}
+                        &#9734;
+                        {% endfor %}
+                        {{book.rating}}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
