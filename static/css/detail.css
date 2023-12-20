@@ -161,7 +161,7 @@
 .d-column .line-track {
     display: flex;
     background-color: #ccc;
-    height: 15px;
+    height: 35px;
     width: 100%;
     border-radius: 10px;
     position: relative;
@@ -180,4 +180,12 @@
     right: 10px;
     transform: translateY(-50%);
     color: black;
+}
+
+.star{
+    position: absolute;
+    align-items: center;
+    top: 30%;
+    left: 2%;
+    color: yellow;
 }
