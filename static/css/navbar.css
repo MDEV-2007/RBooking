@@ -5,18 +5,88 @@
     box-sizing: border-box;
     text-decoration: none;
     list-style: none;
+
+    transition: .2s ease-in-out;
 }
+
+:root{
+    --primary-color: white;
+    --primary-label: black;
+    --secondary-label: white;
+    --white-color: white;
+    --black-ball: black;
+    --text-color: black;
+    
+}
+.dark-mode {
+    --primary-color: black;
+    --primary-label: white;
+    --secondary-label: black;
+    --white-color: black;
+    --black-ball: white;
+    --text-color: white;
+}
+
+.dark #switch {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+
+.dark label{
+    display: block;
+    width: 100px;
+    height: 50px;
+    background: var(--primary-label);
+    border-radius: 100px;
+    position: relative;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.dark label::after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    border-radius: 70px;
+    background-color: var(--white-color);
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    transition: 0.5s;
+}
+
+.dark #switch:checked + label:after{
+    background-color: var(--black-ball);
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+
+.dark label:active::after{
+    width: 60px;
+}
+
+
+.dark #switch:checked + label{
+    background-color: var(--secondary-label);
+}
+
+body{
+    background: var(--primary-color);
+    color: var(--text-color);
+}
+
 
 ::-webkit-scrollbar {
     display: none;
 }
 
-body{
-    background-color: #fafafa;
-}
-
 .section_nav{
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     padding: 20px 0;
     display: flex;
     justify-content: space-around;
@@ -228,4 +298,27 @@ body{
     padding-top: 10px;
     border-top: 1px solid #ccc;
   }
+
+
+  .scroll-indicator{
+   
+    height: 5px;
+    width: calc(100% - 6em);
+    top: 0px;
+    left: 3em;
+    border-radius: 3px;
+    position: fixed;
+    z-index: 1000;
+}
+
+.scroll-indicator .progress{
+    height: 100%;
+    width: 0;
+    border-radius: 3px;
+    background: linear-gradient(30deg,#020024,#b721ff);
+    transition: width 0.1s ease-in-out;
+  }
   
+
+
+

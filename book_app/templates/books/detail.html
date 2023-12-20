@@ -1,65 +1,94 @@
 <!-- detail.html -->
 
 {% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static '/css/detail.css' %}">
+{% endblock %}
 
 {% block content %}
-  <div class="book-detail">
-    <img src="{{ book.image.url }}" alt="{{ book.title }}">
-    <h1>{{ book.title }}</h1>
-    <p>Author: {{ book.author }}</p>
-    <p>Published Date: {{ book.published_time }}</p>
-    <p>Isbn {{ book.isbn }}</p>
+    <div class="card-detail">
+        <div class="card-image">
+            <img src="{{book.image.url}}" alt="">
+            <a href=""><div class="read">Want to read</div></a>
+            <a href=""><div class="price">Kindle ${{book.price}}</div></a>
+        </div>
+        <div class="card-right">
+           <div class="card-header">
+                <div class="title">{{book.title}}</div>
+                <div class="author">{{book.author}}</div>
+                
+                <div class="reting">
+                 {% for x in book.range %}
+                <span style="color: yellow;"><i class="fa-solid fa-star"></i></span>
+                {% endfor %}
+                {% for x in book.xrange %}
+                <i class="fa-regular fa-star"></i>
+                {% endfor %}
 
-    <h2>Reviews:</h2>
-    <p>
-      {% for x in book.range %}
-          <span style="color: yellow;">&#9733;</span>
-      {% endfor %}
-      
-      {% for x in book.xrange %}
-      &#9734;
-      {% endfor %}
-      &#9732;
+                {{book.rating}}
+                </div>
+                <div class="author-bio">{{book.author.bio}}</div>
+                <div class="d-flex">
+                    <p style="font-weight: bold;">Genre</p>
+                    {% for genre in genre %}
+                    <div class="genre">{{genre.name}}</div>
+                    {% endfor %}
+                </div>
 
-      <!-- &#9734; -->
-      {{book.rating}}
-  </p>
+                <div class="d-column">
+                    <div class="line-track">
+                        
+                        <div class="line" style="width: {{book.ratings.5.percent}}%;"></div>
+                        <div class="percent">{{book.ratings.5.percent}} * {{book.ratings.5.count}}</div>
 
-    <h2>Genre:</h2>
-    <ul>
-      {% for genre in genre %}
-          <p>{{ genre.name }}</p>
-      {% endfor %}
-    </ul>
-  </div>
+                    </div>
+                    <div class="line-track">
+                        <div class="line" style="width: {{book.ratings.4.percent}}%;"></div>
+                        <div class="percent">{{book.ratings.4.percent}} * {{book.ratings.4.count}}</div>
 
-  <h1>{{ book.title }} by {{ book.author.name }}</h1>
-  <p>{{ book.description }}</p>
+                    </div>
+                    <div class="line-track">
+                        <div class="line" style="width: {{book.ratings.3.percent}}%;"></div>
+                        <div class="percent">{{book.ratings.3.percent}} * {{book.ratings.3.count}}</div>
 
-  <h2>Reviews</h2>
-  <ul>
-      {% for review in reviews %}
-          <li>{{ review.user.username }}: {{ review.text }} (Rating: {{ review.rating }})</li>
-      {% endfor %}
-  </ul>
+                    </div>
+                    <div class="line-track">
+                        <div class="line" style="width: {{book.ratings.2.percent}}%;"></div>
+                        <div class="percent">{{book.ratings.2.percent}} * {{book.ratings.2.count}}</div>
 
-  {% if user.is_authenticated %}
-      <h2>Add a Review</h2>
-      <form method="POST">
-          {% csrf_token %}
-          <label for="text">Your Review:</label><br>
-          <textarea name="text" required></textarea><br>
-          <label for="rating">Rating:</label>
-          <select name="rating" required>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-          </select><br>
-          <input type="submit" value="Submit Review">
-      </form>
-  {% else %}
-      <p><a href="{% url 'login' %}">Login</a> to add a review.</p>
-  {% endif %}
+                    </div>
+                    <div class="line-track">
+                        <div class="line" style="width: {{book.ratings.1.percent}}%;"></div>
+                        <div class="percent">{{book.ratings.1.percent}} * {{book.ratings.1.count}}</div>
+
+                    </div>
+                </div>
+        </div>
+
+
+        <div class="card-container">
+            <div class="card">
+                <a href="{% url 'book_detail' book_id=book.pk %}">
+                    <img src="{{book.image.url}}" alt="Card Image">
+                </a>
+
+                <div class="card-content">
+                    <h2>{{book.title}}</h2>
+                    <p>
+                        {% for x in book.range %}
+                        <span style="color: yellow;">&#9733;</span>
+                        {% endfor %}
+                        {% for x in book.xrange %}
+                        &#9734;
+                        {% endfor %}
+                        {{book.rating}}
+                    </p>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>
 {% endblock %}
