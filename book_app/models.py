@@ -35,21 +35,18 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
-    @property
-    def rating(self):
+    def get_rating(self):
         ratings = [x.rating for x in self.reviews.all()]
+
         if len(ratings) != 0:
             return round(sum(ratings) / len(ratings), 1)
         else:
             return 0
 
-    @property
-    def range(self):
-        return range(int(self.rating))
-
-    @property
-    def xrange(self):
-        return range(5 - int(self.rating))
+    def rating(self):
+        yellows = ['<span style="color: yellow;">&#9733;</span>' for x in range(int(self.get_rating()))]
+        greys = ['<span>&#9734;</span>' for x in range(5 - int(self.get_rating()))]
+        return ''.join(yellows) + ''.join(greys)
 
     def ratings(self):
 
@@ -59,7 +56,7 @@ class Book(models.Model):
 
             return {
                 'count': len(filtered),
-                'percent': round(len(filtered)  / (len(self.reviews.all()) / 100), 1)
+                'percent': round(len(filtered)  / (len(self.reviews.all()) / 100), 1) if len(filtered) > 0 else 0,
             }
 
         return {

@@ -48,13 +48,8 @@
                 <div class="card-content">
                     <h2>{{book.title}}</h2>
                     <p>
-                        {% for x in book.range %}
-                        <span style="color: yellow;">&#9733;</span>
-                        {% endfor %}
-                        {% for x in book.xrange %}
-                        &#9734;
-                        {% endfor %}
-                        {{book.rating}}
+                        {{book.rating | safe}}{{book.get_rating}}
+
                     </p>
                 </div>
             </div>

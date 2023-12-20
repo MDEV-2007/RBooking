@@ -9,7 +9,7 @@ class BookListView(View):
     template_name = 'home.html'
 
     def get(self, request):
-        books = sorted([x for x in Book.objects.all() if x.rating >= 3.5], key=lambda x: x.rating, reverse=True)
+        books = sorted([x for x in Book.objects.all() if x.get_rating() >= 3.5], key=lambda x: x.rating, reverse=True)
         return render(request, self.template_name, {'books': books})
 
 

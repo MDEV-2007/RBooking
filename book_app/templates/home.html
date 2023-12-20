@@ -12,9 +12,9 @@
         <span>Buy two selected books and get <br> on for free</span>
         <p></p>
         {% if user.is_authenticated %}
-            <p class="start">Hello {{user.username|title}} 👋</p>
+        <p class="start">Hello {{user.username|title}} 👋</p>
         {% else %}
-            <a href="{% url 'login' %}"><button>Start For Free</button></a>
+        <a href="{% url 'login' %}"><button>Start For Free</button></a>
         {% endif %}
     </div>
     <div class="right">
@@ -35,16 +35,8 @@
         <div class="card-content">
             <h2>{{book.title}}</h2>
             <p>
-                {% for x in book.range %}
-                <span style="color: yellow;">&#9733;</span>
-                {% endfor %}
+                {{book.rating | safe}}{{book.get_rating}}
 
-                {% for x in book.xrange %}
-                &#9734;
-                {% endfor %}
-
-                <!-- &#9734; -->
-                {{book.rating}}
             </p>
         </div>
     </div>
